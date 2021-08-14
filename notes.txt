@@ -1,0 +1,40 @@
+c = 1
+t' = γ(t - vx/c^2) = γ(t - vx)
+x' = γ(x - vt)
+γ = 1/sqrt(1 - v^2/c^2) = 1/sqrt(1 - v^2)
+
+x basis vector:
+(x', t') = (1, 0)
+0 = γ(t - vx)
+t - vx = 0
+t = vx
+1 = γ(x - vt) = γ(x - v^2 x) = γx(1 - v^2)
+x = 1/γ(1 - v^2) = sqrt(1 - v^2)/(1 - v^2) = 1/sqrt(1 - v^2)
+t = v/sqrt(1 - v^2)
+(x, t) = (1/sqrt(1 - v^2), v/sqrt(1 - v^2)) = (γ, vγ)
+
+t basis vector:
+(x', t') = (0, 1)
+0 = γ(x - vt)
+x - vt = 0
+x = vt
+1 = γ(t - vx) = γ(t - v^2 t) = γt(1 - v^2)
+t = 1/γ(1 - v^2) = sqrt(1 - v^2)/(1 - v^2) = 1/sqrt(1 - v^2)
+x = v/sqrt(1 - v^2)
+(x, t) = (v/sqrt(1 - v^2), 1/sqrt(1 - v^2)) = (vγ, γ)
+
+basis vector length:
+l = sqrt(γ^2 + (vγ)^2) = sqrt(γ^2(1 + v^2)) = sqrt((1 + v^2) / (1 - v^2))
+l^2 = (1 + v^2) / (1 - v^2)
+(1 - v^2)l^2 = 1 + v^2
+l^2 - l^2 v^2 - 1 - v^2 = 0
+(l^2 + 1)v^2 = l^2 - 1
+v^2 = (l^2 - 1) / (l^2 + 1)
+v = sqrt((l^2 - 1) / (l^2 + 1))
+
+velocity addition:
+u = (v + w) / (1 + vw/c^2) = (v + w) / (1 + vw)
+
+recurrence:
+v(0) = 0, v(n+1) = (v(n) + du) / (1 + v(n) du)
+v(n) = 2 / ((2 / (w + 1) - 1)^n + 1) - 1

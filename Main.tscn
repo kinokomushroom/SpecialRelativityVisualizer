@@ -1,0 +1,229 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 0, 1, 1, 0.789063, 0.789063, 0.789063, 1, 0, 1, 1, 1 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+graph_background_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+x_axis_color = Color( 0.627451, 0.239216, 0.239216, 1 )
+y_axis_color = Color( 0.254902, 0.666667, 0.254902, 1 )
+light_color = Color( 1, 1, 0.501961, 1 )
+grid_color_gradient = SubResource( 1 )
+single_grid_color = Color( 0.384314, 0.384314, 0.921569, 1 )
+base_grid_color = Color( 0.780392, 0.780392, 0.780392, 1 )
+length_contraction_color = Color( 0.882353, 0.415686, 0.415686, 1 )
+time_dilation_color = Color( 0.498039, 0.878431, 0.498039, 1 )
+display_grids = false
+display_lines = false
+display_points = false
+display_single_grid = false
+display_base_grid = false
+display_extra_data = false
+grid_line_number = 10
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grids" type="Button" parent="Control"]
+margin_left = 56.0
+margin_top = 672.0
+margin_right = 144.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "grids"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lines" type="Button" parent="Control"]
+margin_left = 160.0
+margin_top = 672.0
+margin_right = 248.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "lines"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="points" type="Button" parent="Control"]
+margin_left = 264.0
+margin_top = 672.0
+margin_right = 352.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "points"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="base_grid" type="Button" parent="Control"]
+margin_left = 368.0
+margin_top = 672.0
+margin_right = 456.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "base grid"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="single_grid" type="Button" parent="Control"]
+margin_left = 472.0
+margin_top = 672.0
+margin_right = 560.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "single grid"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="extra_data" type="Button" parent="Control"]
+margin_left = 576.0
+margin_top = 672.0
+margin_right = 664.0
+margin_bottom = 692.0
+toggle_mode = true
+action_mode = 0
+text = "extra data"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="change" type="SpinBox" parent="Control"]
+margin_left = 136.0
+margin_top = 16.0
+margin_right = 210.0
+margin_bottom = 40.0
+min_value = -100.0
+step = 0.001
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 24.0
+margin_top = 16.0
+margin_right = 129.0
+margin_bottom = 30.0
+text = "velocity change:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="Control"]
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 129.0
+margin_bottom = 62.0
+text = "(velocity changes by 0.5c per change of 1.0)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control"]
+modulate = Color( 1, 0.337255, 0.337255, 1 )
+margin_left = 592.0
+margin_top = 16.0
+margin_right = 697.0
+margin_bottom = 30.0
+text = "x axis"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control"]
+modulate = Color( 0.454902, 0.878431, 0.454902, 1 )
+margin_left = 592.0
+margin_top = 32.0
+margin_right = 697.0
+margin_bottom = 46.0
+text = "t axis"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Control"]
+modulate = Color( 1, 1, 0.596078, 1 )
+margin_left = 592.0
+margin_top = 48.0
+margin_right = 697.0
+margin_bottom = 62.0
+text = "light path"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="extra" type="Control" parent="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/extra"]
+margin_left = 360.0
+margin_top = 16.0
+margin_right = 480.0
+margin_bottom = 30.0
+text = "time dilation:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control/extra"]
+margin_left = 360.0
+margin_top = 40.0
+margin_right = 488.0
+margin_bottom = 54.0
+text = "length contraction:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_dilation" type="Label" parent="Control/extra"]
+margin_left = 512.0
+margin_top = 16.0
+margin_right = 598.0
+margin_bottom = 30.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="length_contraction" type="Label" parent="Control/extra"]
+margin_left = 512.0
+margin_top = 40.0
+margin_right = 598.0
+margin_bottom = 54.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="toggled" from="Control/grids" to="." method="_on_grids_toggled"]
+[connection signal="toggled" from="Control/lines" to="." method="_on_lines_toggled"]
+[connection signal="toggled" from="Control/points" to="." method="_on_points_toggled"]
+[connection signal="toggled" from="Control/base_grid" to="." method="_on_base_grid_toggled"]
+[connection signal="toggled" from="Control/single_grid" to="." method="_on_single_grid_toggled"]
+[connection signal="toggled" from="Control/extra_data" to="." method="_on_extra_data_toggled"]
+[connection signal="value_changed" from="Control/change" to="." method="_on_change_value_changed"]
