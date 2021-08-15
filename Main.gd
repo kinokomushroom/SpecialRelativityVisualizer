@@ -22,12 +22,12 @@ export var line_display_count : int = 4
 export var point_display_count : int = 5
 export var point_size : float = 4.0
 
-export var display_grids : bool = true
-export var display_lines : bool = true
-export var display_points : bool = true
-export var display_single_grid : bool = true
-export var display_base_grid : bool = true
-export var display_extra_data : bool = true
+export var display_grids : bool = false
+export var display_lines : bool = false
+export var display_points : bool = false
+export var display_single_grid : bool = false
+export var display_base_grid : bool = false
+export var display_extra_data : bool = false
 
 export var graph_center : Vector2 = Vector2(0.5, 0.5)
 export var graph_extent : Vector2 = Vector2(0.4, 0.4)
@@ -35,9 +35,6 @@ export var graph_unit_length : float = 0.1
 export var grid_line_number : int = 4
 
 export var change : float = 0.0
-
-var light_basis_positive : Vector2 = Vector2(100, 100)
-var light_basis_negative : Vector2 = Vector2(-100, 100)
 
 
 func map_range(value : float, from_start : float, from_end : float, to_start : float, to_end : float) -> float:
@@ -56,9 +53,10 @@ func change_velocity(amount : float, acceleration : float) -> float:
 
 func velocity_to_transform(velocity : float) -> Transform2D:
 	if velocity == 1.0:
-		return Transform2D(light_basis_positive, light_basis_positive, Vector2(0, 0))
+		# I know this is incorrect but infinite values don't display correctly
+		return Transform2D(Vector2(10000, 10000), Vector2(10000, 10000), Vector2(0, 0))
 	elif velocity == -1.0:
-		return Transform2D(light_basis_negative, light_basis_negative, Vector2(0, 0))
+		return Transform2D(Vector2(-10000, 10000), Vector2(-10000, 10000), Vector2(0, 0))
 	else:
 		var gamma : float = 1.0 / sqrt(1.0 - velocity * velocity)
 		var x_basis : Vector2 = Vector2(gamma, velocity * gamma)
@@ -150,17 +148,17 @@ func _draw():
 	# length contraction and time dilation
 	if display_extra_data:
 		var velocity = change_velocity(change, 0.5)
-		var gamma : float = 1.0 / sqrt(1.0 - velocity * velocity)
+		var gamma_inv : float = sqrt(1.0 - velocity * velocity)
 		# length contraction
 		graph_draw_point(velocity_to_transform(0.0), Vector2(1, 0), point_size, length_contraction_color)
-		graph_draw_point(velocity_to_transform(0.0), Vector2(1, 0) / gamma, point_size, length_contraction_color)
+		graph_draw_point(velocity_to_transform(0.0), Vector2(1, 0) * gamma_inv, point_size, length_contraction_color)
 		# time dilation
 		var start_point : Vector2 = graph_to_viewport(velocity_to_transform(velocity).xform(Vector2(0, 1)))
-		var end_point : Vector2 = graph_to_viewport(Vector2(0, 1) * gamma)
+		var end_point : Vector2 = graph_to_viewport(Vector2(0, 1) / gamma_inv)
 		draw_line(start_point, end_point, time_dilation_color, 1.0)
 		graph_draw_point(velocity_to_transform(0.0), Vector2(0, 1), point_size, time_dilation_color)
 		graph_draw_point(velocity_to_transform(velocity), Vector2(0, 1), point_size, time_dilation_color)
-		graph_draw_point(velocity_to_transform(0.0), Vector2(0, 1) * gamma, point_size, time_dilation_color)
+		graph_draw_point(velocity_to_transform(0.0), Vector2(0, 1) / gamma_inv, point_size, time_dilation_color)
 	
 	# graph surrounding background
 	draw_rect(Rect2(Vector2(0, 0), Vector2(graph_bottom_left.x, viewport_size.y)), background_color, true)
@@ -175,7 +173,13 @@ func _draw():
 	draw_line(graph_bottom_right, graph_top_right, graph_border_color, 2.0)
 
 func _ready():
-	pass
+	display_grids = false
+	display_lines = false
+	display_points = false
+	display_single_grid = false
+	display_base_grid = false
+	display_extra_data = false
+	change = 0.0
 
 func _process(delta):
 	viewport_size = get_viewport_rect().size
@@ -183,9 +187,13 @@ func _process(delta):
 	# display time dilation and length contraction
 	$Control/extra.visible = display_extra_data
 	var velocity = change_velocity(change, 0.5)
-	var gamma : float = 1.0 / sqrt(1.0 - velocity * velocity)
-	$Control/extra/time_dilation.text = String(gamma)
-	$Control/extra/length_contraction.text = String(1.0 / gamma)
+	var gamma_inv : float = sqrt(1.0 - velocity * velocity)
+	if gamma_inv != 0:
+		$Control/extra/time_dilation.text = String(1.0 / gamma_inv)
+	else:
+		$Control/extra/time_dilation.text = "INFINITE"
+	$Control/extra/length_contraction.text = String(gamma_inv)
+	$Control/extra/velocity.text = String(velocity)
 	
 	update()
 
